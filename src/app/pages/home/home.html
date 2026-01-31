@@ -1,6 +1,12 @@
 <div class="home">
   <div class="box">
     <h1 class="title">AuAu!</h1>
-    <input class="searchBar" type="text" placeholder="Pesquise uma raça" />
+    <input
+      [(ngModel)]="breedInput"
+      (keyup.enter)="onEnter($event)"
+      class="searchBar"
+      type="text"
+      placeholder="Pesquise uma raça"
+    />
   </div>
 </div>
