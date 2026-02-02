@@ -1,1 +1,10 @@
-<p>breed-page works!</p>
+<div class="all">
+  <div class="header">
+    <button (click)="goBack()" class="back"><</button>
+    <h1>AuAu</h1>
+  </div>
+
+  <div class="container">
+    <app-dog-images *ngIf="breed" [breed]="breed"></app-dog-images>
+  </div>
+</div>

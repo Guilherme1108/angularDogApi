@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,9 @@ import { FormsModule } from '@angular/forms';
 export class HomeComponent {
   breedInput: string = '';
 
+  constructor(private router: Router) {}
   onEnter(event: any) {
-    // console.log(this.breedInput);
+    if (!this.breedInput.trim()) return;
+    this.router.navigate(['dogs', this.breedInput]);
   }
 }
