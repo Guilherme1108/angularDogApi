@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { BreedSearch } from '../../services/breed-search';
-import { switchMap } from 'rxjs';
-switchMap;
 
 @Component({
   selector: 'app-dog-images',
@@ -18,10 +16,11 @@ export class DogImages implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private breedSearch: BreedSearch,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    // O segredo é garantir que sempre que o parâmetro mudar, a busca dispare
+    
     this.route.params.subscribe((params) => {
       const breed = params['breed']; // Pega o nome da raça da URL
       if (breed) {
@@ -34,10 +33,11 @@ export class DogImages implements OnInit {
     this.breedSearch.getData(breed).subscribe({
       next: (response: any) => {
         this.images = response.message;
+        this.cdr.detectChanges();
       },
-      error: (err) => {
-        console.error('Erro ao buscar imagens', err);
-        this.images = []; // Limpa as imagens se der erro
+      error: (erro) => {
+        console.error('Erro ao buscar imagens', erro);
+        this.images = [];
       },
     });
   }
