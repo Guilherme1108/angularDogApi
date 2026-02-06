@@ -24,21 +24,14 @@ export class DogImages implements OnInit {
     this.route.params.subscribe((params) => {
       const breed = params['breed']; // Pega o nome da raça da URL
       if (breed) {
-        this.fetchImages(breed);
+        this.carregarImagens(breed);
       }
     });
   }
 
-  fetchImages(breed: string) {
-    this.breedSearch.getData(breed).subscribe({
-      next: (response: any) => {
-        this.images = response.message;
-        this.cdr.detectChanges();
-      },
-      error: (erro) => {
-        console.error('Erro ao buscar imagens', erro);
-        this.images = [];
-      },
-    });
+  async carregarImagens(breed: string) {
+    const data = await this.breedSearch.getData(breed);
+    this.images = data.message;
+    this.cdr.detectChanges();
   }
 }
